@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
 const userSchema = mongoose.Schema(
     {
@@ -18,7 +18,6 @@ const userSchema = mongoose.Schema(
         },
         pic: {
             type: "String",
-            required: true,
             default:
                 "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
         },

@@ -6,16 +6,16 @@ const app = express();
 dotenv.config();
 const port = process.env.PORT || 5000
 const server = http.createServer(app);
-const colors= require("colors");
-const connectDB=require("./config/db")
-
+const colors = require("colors");
+const connectDB = require("./config/db")
+const userRoutes = require("./routes/userRoutes")
+app.use(express.json());
 connectDB();
-app.get("/",(req, res)=>{
-res.send("Api was running");
+app.get("/", (req, res) => {
+    res.send("Api was running");
 })
 
-app.get("/api/chat",(req, res)=>{
-    res.send(chats);
-})
+app.use("/api/user", userRoutes)
 
-app.listen(port,console.log(`Server started on ${port}` .yellow.bold));
+
+app.listen(port, console.log(`Server started on ${port}`.yellow.bold));
