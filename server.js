@@ -6,7 +6,10 @@ const app = express();
 dotenv.config();
 const port = process.env.PORT || 5000
 const server = http.createServer(app);
+const colors= require("colors");
+const connectDB=require("./config/db")
 
+connectDB();
 app.get("/",(req, res)=>{
 res.send("Api was running");
 })
@@ -15,4 +18,4 @@ app.get("/api/chat",(req, res)=>{
     res.send(chats);
 })
 
-app.listen(port,console.log("Server started on "+port));
+app.listen(port,console.log(`Server started on ${port}` .yellow.bold));
