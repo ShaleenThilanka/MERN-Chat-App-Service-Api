@@ -23,8 +23,8 @@ const registerUser=asyncHandler(async (req,res)=>{
         res.status(201).json({
             _id:user._id,
             name:user.name,
-            password:user.password,
-            pics:user.pic,
+            email:user.email,
+            pics:user.pics,
             token:generateToken(user._id),
         })
     }else {
@@ -39,8 +39,8 @@ const authUser = asyncHandler(async (req,res)=>{
         res.json({
             _id: user._id,
             name: user.name,
-            password: user.password,
-            pic: user.pic,
+            email:user.email,
+            pics: user.pics,
             token: generateToken(user._id),
         })
     } else {
