@@ -3,9 +3,6 @@ const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
 
 const accessChat = asyncHandler(async (req, res) => {
-    console.log("!")
-    console.log(req.user)
-    console.log("2")
     const { userId } = req.body;
 
     if (!userId) {
