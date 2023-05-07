@@ -14,9 +14,7 @@ const messageRoutes = require("./routes/messageRoutes")
 const {notFound, errorHandler} = require("./middlewares/errorMiddlewares");
 app.use(express.json());
 
-
 connectDB();
-
 
 app.get("/check", (req, res) => {
     res.send("Api was running");
