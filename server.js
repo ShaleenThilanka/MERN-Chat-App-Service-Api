@@ -1,6 +1,5 @@
 const express = require("express");
 const http = require("http");
-const chats = require("./data/data");
 const dotenv = require("dotenv")
 const app = express();
 dotenv.config();
