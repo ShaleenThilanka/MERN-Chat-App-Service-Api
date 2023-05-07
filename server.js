@@ -18,7 +18,7 @@ app.use(express.json());
 connectDB();
 
 
-app.get("/", (req, res) => {
+app.get("/check", (req, res) => {
     res.send("Api was running");
 })
 
