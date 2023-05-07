@@ -25,7 +25,7 @@ app.use("/api/message", messageRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
-const listenServer =app.listen(port, console.log(`Server started on ${port}`.yellow.bold))
+const listenServer =app.listen(port, console.log(`Server started on ${port}`))
 const io = require("socket.io")(listenServer, {
     pingTimeout: 60000,
     cors: {
