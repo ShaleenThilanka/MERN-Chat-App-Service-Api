@@ -30,6 +30,7 @@ const io = require("socket.io")(listenServer, {
     pingTimeout: 60000,
     cors: {
         origin: "https://mern-chat-app-e6zt.onrender.com",
+        credentials: true
     },
 });
 
