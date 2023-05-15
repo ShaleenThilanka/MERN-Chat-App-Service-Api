@@ -1,0 +1,48 @@
+require('dotenv').config();
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const generateDevelopersStackResourceName = require("../config/genaret");
+
+
+const s3Client = new S3Client({
+    credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY,
+        secretAccessKey: process.env.AWS_SECRET_KEY
+    },
+    region: 'ap-south-1' });
+
+const fs = require('fs');
+
+const uploadImage = async (req, res) => {
+    const file = req.file;
+    const data = req.body.data;
+    const fileData = fs.readFileSync(file.path);
+
+    const fileName = generateDevelopersStackResourceName(
+        file.originalname,
+        "P",
+        20
+    );
+
+    const params = {
+        Bucket: 'your-bucket-name',
+        Key: `ozh-hub-sample/business/file/${fileName}`,
+        Body: fileData,
+        ContentType: file.mimetype,
+        ACL: 'public-read',
+    };
+    try {
+        const command = new PutObjectCommand(params);
+        const response = await s3Client.send(command);
+        fs.unlinkSync(file.path);
+        const fileUrl = `https://developers-stack-production-bucket.s3.ap-south-1.amazonaws.com/ozh-collect-data/business/file/${fileName}`;
+        console.log(fileUrl)
+        console.log('File uploaded successfully:', response);
+        res.status(200).json({ message: 'File uploaded successfully' });
+    } catch (err) {
+        console.error('Error uploading file:', err);
+        res.status(500).json({ error: 'Failed to upload file to AWS S3' });
+    }
+};
+
+
+module.exports = {uploadImage};

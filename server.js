@@ -10,10 +10,19 @@ const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes")
 const messageRoutes = require("./routes/messageRoutes")
+const imageRoutes=require("./routes/imageRoutes")
+const AWS = require('aws-sdk');
+
 const {notFound, errorHandler} = require("./middlewares/errorMiddlewares");
+
 app.use(express.json());
 
 connectDB();
+
+AWS.config.update({
+    accessKeyId: 'AKIAW7ORQRRLYK7BAZ6L',
+    secretAccessKey: '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',
+});
 
 app.get("/check", (req, res) => {
     res.send("Api was running");
@@ -22,6 +31,8 @@ app.get("/check", (req, res) => {
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
+app.use("/api/image",imageRoutes)
+
 
 app.use(notFound);
 app.use(errorHandler);
