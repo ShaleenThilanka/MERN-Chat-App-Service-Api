@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 const generateDevelopersStackResourceName = require("../config/genaret");
-
+const ImageDetails = require("../models/imageDetials");
 
 const s3Client = new S3Client({
     credentials: {
@@ -14,9 +14,12 @@ const fs = require('fs');
 
 const uploadImage = async (req, res) => {
     const file = req.file;
-    const data = req.body.data;
-    const fileData = fs.readFileSync(file.path);
 
+    const data = JSON.parse(req.body.data);
+    console.log(data.name)
+    const name=data.name;
+    const age=data.age;
+    const fileData = fs.readFileSync(file.path);
     const fileName = generateDevelopersStackResourceName(
         file.originalname,
         "P",
@@ -36,6 +39,15 @@ const uploadImage = async (req, res) => {
         fs.unlinkSync(file.path);
         const fileUrl = `https://developers-stack-production-bucket.s3.ap-south-1.amazonaws.com/ozh-collect-data/business/file/${fileName}`;
         console.log(fileUrl)
+
+        const image = new ImageDetails({
+            name,
+            age,
+            imageUrl: fileUrl
+        });
+
+        // Save the image details to the database
+        await image.save();
         console.log('File uploaded successfully:', response);
         res.status(200).json({ message: 'File uploaded successfully' });
     } catch (err) {

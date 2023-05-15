@@ -19,11 +19,6 @@ app.use(express.json());
 
 connectDB();
 
-AWS.config.update({
-    accessKeyId: 'AKIAW7ORQRRLYK7BAZ6L',
-    secretAccessKey: '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',
-});
-
 app.get("/check", (req, res) => {
     res.send("Api was running");
 })
