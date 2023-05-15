@@ -27,7 +27,7 @@ const uploadImage = async (req, res) => {
     );
 
     const params = {
-        Bucket: 'your-bucket-name',
+        Bucket: 'developers-stack-production-bucket',
         Key: `ozh-hub-sample/business/file/${fileName}`,
         Body: fileData,
         ContentType: file.mimetype,
